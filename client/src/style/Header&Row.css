@@ -1,0 +1,76 @@
+.Header,
+.Row {
+     display: flex;
+     flex-direction: row;
+     justify-content: space-between;
+     align-items: center;
+     width: 80%;
+     margin: 5px;
+     /* border-right: 1px solid black; */
+
+}
+
+.Header {
+     background-color: #FFC101;
+}
+
+.Row:nth-child(2n) {
+     background-color: #B7B7B6;
+}
+
+
+.td {
+     /* border-right: 1px solid black; */
+     display: flex;
+     flex-direction: row;
+     align-items: center;
+     justify-content: center;
+     text-align: center;
+     height: 50px;
+}
+
+.td>input {
+     width: 85%;
+     height: 70%;
+}
+
+.rowNum {
+     width: 5%;
+}
+
+.item {
+     width: 15%;
+}
+
+.price {
+     width: 10%;
+}
+
+.measurment {
+     width: 10%;
+}
+
+.quantity {
+     width: 10%;
+}
+
+.priceWithoutVAT {
+     width: 10%;
+}
+
+.VAT {
+     width: 10%;
+}
+
+.totalVAT {
+     width: 10%;
+}
+
+.total {
+     width: 10%;
+}
+
+.edit,
+.delete {
+     width: 5%;
+}

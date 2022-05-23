@@ -1,0 +1,45 @@
+.Settings {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     width: 100%;
+}
+
+.InputRows {
+     width: 80%;
+     display: flex;
+     flex-direction: row;
+     align-items: stretch;
+     justify-content: space-between;
+     /* border: 1px solid black; */
+     border-radius: 4px;
+     box-shadow: 3px 3px 4px -3px black;
+}
+
+.InputGroups {
+     width: 40%;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     padding: 10px
+}
+
+.PasswordAndEmailRows {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     width: 80%;
+}
+
+.EmailAndUserDelete {
+     justify-content: space-between;
+}
+
+.ChangeEmailDiv {
+     width: 100%;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+}

@@ -1,0 +1,45 @@
+.ClientAndInvoiceInfo {
+     width: 80%;
+     display: flex;
+     flex-direction: row;
+     justify-content: space-between;
+     align-items: stretch;
+     padding-bottom: 10px;
+     /* height: 50vh; */
+}
+
+.ClientInfo {
+     display: flex;
+     flex-direction: column;
+     align-items: flex-start;
+     justify-content: center;
+     width: 40%;
+}
+
+.InvoiceInfo {
+     display: flex;
+     flex-direction: column;
+     align-items: flex-end;
+     justify-content: flex-start;
+     width: 25%;
+}
+
+/* .ClientInfo>input { */
+/* width: 100%; */
+/* margin-top: 1%;
+     margin-bottom: 1%;
+     height: 35px;
+     border-radius: 0; */
+/* border-color: black;
+     border-style: solid; */
+/* border: 1px solid #B7B7B6 */
+/* } */
+
+/* .InvoiceInfo>input {
+     width: 50%;
+     margin-top: 1%;
+     margin-bottom: 3%;
+     height: 35px;
+     border-radius: 0;
+     border: 1px solid #B7B7B6
+} */

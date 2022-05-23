@@ -1,0 +1,77 @@
+.Home {
+     width: 100%;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+}
+
+.Cards {
+     width: 80%;
+     display: flex;
+     flex-direction: row;
+     justify-content: space-between;
+     margin-top: 3%;
+}
+
+.Card {
+     display: flex;
+     flex-direction: column;
+     align-items: flex-start;
+     width: 15%;
+     height: 120px;
+     border-radius: 5px;
+     padding: 1%;
+     box-shadow: 6px 7px 7px -6px black;
+}
+
+.InvoicesTable {
+     width: 100%;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     margin-top: 3%;
+}
+
+.InvoiceRow {
+     width: 80%;
+     display: flex;
+     flex-direction: row;
+     justify-content: space-around;
+     align-items: center;
+     border: 1px solid black;
+
+}
+
+/* td width */
+.seeInvoice {
+     width: 5%;
+}
+
+.client {
+     width: 30%;
+}
+
+.paymentDate {
+     width: 15%;
+}
+
+.priceWithoutVat {
+     width: 20%;
+}
+
+.VAT {
+     width: 10%;
+}
+
+.total {
+     width: 20%;
+}
+
+.payed {
+     width: 5%;
+}
+
+.delete {
+     width: 5%;
+}
