@@ -31,7 +31,8 @@
      .BottomBtns,
      .edit,
      .delete,
-     .empty {
+     .empty,
+     .Flash {
           display: none;
      }
 
