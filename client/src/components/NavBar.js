@@ -29,7 +29,7 @@ export default function NavBar({ flash }) {
 
                          <div className='Logo'>
                               {/* <Typography component={NavLink} to="/" varian="button" style={{ textDecoration: "none", color: "black", fontSize: "1.5rem", fontFamili: "roboto" }} fontSize={"1.5rem"}>invoice</Typography> */}
-                              <img src={logo} height="50px" alt="logo" />
+                              <NavLink to="/"><img src={logo} height="50px" alt="logo" /></NavLink>
                          </div>
                          <div className='NavLink'>
 
