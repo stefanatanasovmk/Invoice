@@ -14,7 +14,10 @@ const UserSchema = new Schema({
      tel: String,
      bankAccount: String,
      taxNumber: String,
-     logo: String,
+     logo: {
+          path: String,
+          publicID: String,
+     },
      invoices: [{
           type: Schema.Types.ObjectId,
           ref: "Invoice"

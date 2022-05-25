@@ -18,9 +18,7 @@ export default function CompanyInfo({ inputsStyle, user, submit, flashPopUp }) {
                } else if (!(e.target.files[0].type === "image/png" || e.target.files[0].type === "image/jpeg")) {
                     flashPopUp("error", "Недозволен формат, дозволени се само .jpeg, .jpg и .png формат")
                } else {
-
                     setImage(e.target.files[0])
-
                }
           }
      }

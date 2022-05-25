@@ -26,6 +26,7 @@ router.post("/api/signup", async (req, res) => {
                          user.tel = ""
                          user.bankAccount = ""
                          user.taxNumber = ""
+                         user.logo.path = ""
                          await user.setPassword(password1)
                          user.verificationCode = code
                          await user.save()

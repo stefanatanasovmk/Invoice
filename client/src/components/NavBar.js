@@ -51,7 +51,7 @@ export default function NavBar({ flash }) {
                                    <Typography noWrap fontSize={"0.9em"} align="center">Одјави се</Typography>
                               </Button>
 
-                              <Avatar component={NavLink} to="/settings" alt="company logo" src={user.logo} />
+                              <Avatar component={NavLink} to="/settings" alt="company logo" src={user.logo.path} />
                          </div >
                     </div >
                     <div className='Flash'>

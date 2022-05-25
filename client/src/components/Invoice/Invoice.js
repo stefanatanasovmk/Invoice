@@ -91,11 +91,10 @@ export default function Invoice() {
      }
      useEffect(() => {
           getSavedInvoice()
-
      }, [])
      const companyInfo = {
           name: user.companyName, address: user.address, telephone: user.tel, mail: user.username, bankAcc: user.bankAccount, tax: user.taxNumber,
-          logo: user.logo
+          logo: user.logo.path
      }
      const handlePrint = () => {
           window.print()

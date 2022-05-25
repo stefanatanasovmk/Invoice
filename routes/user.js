@@ -11,8 +11,8 @@ const sendVerificationCode = require("../mail/sendVerificationCode")
 const { application } = require("express")
 const Invoice = require("../models/Invoice")
 const Client = require("../models/Client")
+
 router.post("/api/companyinfo/:id", isAuthenticated, async (req, res, next) => {
-     
      try {
           const { companyName, address, tel, bankAccount, taxNumber } = req.body.data
           const { id } = req.params
@@ -40,8 +40,14 @@ router.post("/api/addimage/:id", isAuthenticated, upload.single("image"), async 
           const { id } = req.params
           if (req.user.id === id) {
                const user = await User.findById(id)
-               user.logo = req.file.path
+               if (user.logo.publicID) {
+                    await cloudinary.uploader.destroy(user.logo.publicID)
+               }
+               user.logo.path = req.file.path
+               user.logo.publicID = req.file.filename
                user.save()
+               res.status(200).end()
+          } else {
                res.status(200).end()
           }
      }
@@ -93,6 +99,7 @@ router.post("/api/deleteuser/:id", isAuthenticated, WrapError(async (req, res) =
      try {
           if (req.user.id == req.params.id) {
                const user = await User.findByIdAndDelete(req.params.id)
+               await cloudinary.uploader.destroy(user.logo.publicID)
                await Invoice.deleteMany({ user: user.id })
                await Client.deleteMany({ user: user.id })
                res.status(200).json({ msg: "Вашиот профил беше успешно избришан" })

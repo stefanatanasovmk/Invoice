@@ -7,4 +7,4 @@ export default function Flash({ type, msg }) {
      )
 }
 
-//Flash styling is done in Navbar.css & LoginSignup.css and the component is shown there.
+//Flash styling is done in Navbar.css & LoginSignup.css and the component is shown in both of those components Navbar & LoginSignup.

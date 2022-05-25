@@ -6,7 +6,6 @@ export default function Card({ cardFor, number }) {
                <span
                     style={{
                          fontSize: "1em",
-                         // paddingBottom: "15px",
                          textAlign: "center"
                     }}>{cardFor}</span>
                <span

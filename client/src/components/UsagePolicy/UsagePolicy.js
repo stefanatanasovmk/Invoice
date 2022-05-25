@@ -11,7 +11,7 @@ export default function UsagePolicy() {
                          Политика за користење на апликацијата
                     </Typography>
                     <Typography variant="subtitle1" style={textStyle}>
-                         <p>1. Invoice е отворен проект, и кодот за истиот можете да го најдете овде: <Link target=" _blank" href="https://github.com/stefanatanasovmk/Invoice">линк</Link>.</p>
+                         <p>1. Invoice е отворен проект, и кодот за истиот можете да го најдете овде: <Link target=" _blank" href="https://github.com/stefanatanasovmk/faktura">линк</Link>.</p>
                     </Typography>
                     <Typography variant="subtitle1" style={textStyle}>
                          <p>2. Invoice е личен проект работен во слободно време со цел подобро да се разберат технологиите како React, ExpressJS, MongoDB, MUI и слични.</p>
