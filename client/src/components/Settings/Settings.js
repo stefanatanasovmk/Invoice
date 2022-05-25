@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Context from "../../context/Context";
 import "../../style/Settings.css"
 import { ButtonGroup, Button } from "@mui/material";
@@ -6,9 +6,11 @@ import CompanyInfo from "./CompanyInfo"
 import axios from "axios";
 import UserSettings from "./UserSettings";
 import { useNavigate } from "react-router-dom";
+import useToggle from "../.././hooks/useToggle"
+import Loader from "../../Loader";
 export default function Settings() {
      const navigate = useNavigate()
-
+     const [isLoading, setIsLoading] = useToggle(true)
      const [isItInfo, setIsItInfo] = useState(true)
      const { flashPopUp, user } = useContext(Context)
      const inputsStyle = {
@@ -23,8 +25,13 @@ export default function Settings() {
           }
           axios.post(`/api/addimage/${user._id}`, { image: img }, config)
           axios.post(`/api/companyinfo/${user._id}`, { data: data })
-               .then(res => flashPopUp("success", res.data.msg))
-               .catch(e => flashPopUp("error", e.reponse.data.msg))
+               .then(res => {
+                    flashPopUp("success", res.data.msg)
+
+               })
+               .catch(e => {
+                    flashPopUp("error", e.reponse.data.msg)
+               })
      }
      const changePassword = (oldPass, newPass) => {
           const data = { oldPass, newPass }
@@ -54,6 +61,9 @@ export default function Settings() {
      function changeCompanyInfo() {
           setIsItInfo(true)
      }
+     useEffect(() => {
+          setIsLoading()
+     }, [])
      return (
           <div className="Settings">
                <ButtonGroup variant="contained"
@@ -62,23 +72,30 @@ export default function Settings() {
                     <Button style={{ backgroundColor: isItInfo ? "#FFC101" : "#1976D2" }} onClick={changeCompanyInfo}>Податоци за компанијата</Button>
                     <Button style={{ backgroundColor: !isItInfo ? "#FFC101" : "#1976D2" }} onClick={changePassAndEmail}>Промени лозинка и емаил</Button>
                </ButtonGroup>
-               {
-                    isItInfo ?
-                         <CompanyInfo
-                              inputsStyle={inputsStyle}
-                              user={user}
-                              submit={companyInfoSubmit}
-                              flashPopUp={flashPopUp}
-                         />
-                         :
-                         <UserSettings
-                              inputsStyle={inputsStyle}
-                              user={user}
-                              flashPopUp={flashPopUp}
-                              changePassword={changePassword}
-                              changeEmail={changeEmail}
-                              deleteUser={deleteUser}
-                         />
+               {isLoading ?
+                    <Loader />
+                    :
+
+                    <>
+                         {
+                              isItInfo ?
+                                   <CompanyInfo
+                                        inputsStyle={inputsStyle}
+                                        user={user}
+                                        submit={companyInfoSubmit}
+                                        flashPopUp={flashPopUp}
+                                   />
+                                   :
+                                   <UserSettings
+                                        inputsStyle={inputsStyle}
+                                        user={user}
+                                        flashPopUp={flashPopUp}
+                                        changePassword={changePassword}
+                                        changeEmail={changeEmail}
+                                        deleteUser={deleteUser}
+                                   />
+                         }
+                    </>
                }
           </div >
      )

@@ -9,7 +9,7 @@ export default function InvoicesTableRow({ id, client, paymentDate, priceWithout
      let payedStyle = { backgroundColor: "#aeff78" }
      let unpayedStyle = { backgroundColor: "#fc5151" }
      let rightBorder = { borderRight: "2px solid black" }
-    
+
      const handlechangePaymentStatus = (id) => {
           return () => {
                changePaymentStatus(id)
@@ -29,9 +29,9 @@ export default function InvoicesTableRow({ id, client, paymentDate, priceWithout
                <div style={rightBorder} className="td seeInvoice"><IconButton onClick={handleRouteChange}><ManageSearchSharpIcon /></IconButton></div>
                <div style={rightBorder} className="td client">{client}</div>
                <div style={rightBorder} className="td paymentDate">{paymentDate}</div>
-               <div style={rightBorder} className="td priceWithoutVAT">{parseInt(priceWithoutVAT).toFixed(2)}</div>
-               <div style={rightBorder} className="td VAT">{parseInt(VAT).toFixed(2)}</div>
-               <div style={rightBorder} className="td total">{parseInt(total).toFixed(2)}</div>
+               <div style={rightBorder} className="td priceWithoutVAT">{parseInt(priceWithoutVAT).toFixed(1)}</div>
+               <div style={rightBorder} className="td VAT">{parseInt(VAT).toFixed(1)}</div>
+               <div style={rightBorder} className="td total">{parseInt(total).toFixed(1)}</div>
                <div style={rightBorder} className="td payed">
                     <IconButton onClick={handlechangePaymentStatus(id)}>
                          {payed ? <HighlightOffSharpIcon /> : <CheckCircleOutlineSharpIcon />}

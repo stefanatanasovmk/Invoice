@@ -6,11 +6,11 @@ const passport = require("passport")
 const User = require("./models/User")
 const LocalStrategy = require("passport-local")
 const MongoStore = require("connect-mongo")
-// const cors = require("cors")
+const cors = require("cors")
 
 
-// app.use(cors())
-app.use(express.static("build"))
+app.use(cors())
+// app.use(express.static("build"))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
@@ -52,6 +52,10 @@ app.get("/api/isauthenticated", async (req, res) => {
      req.isAuthenticated() ? res.json({ status: true, user: req.user }) : res.json({ status: false })
 })
 
+app.get('/*', (req, res) => {
+     res.redirect("/")
+})
+
 app.all("*", WrapError((req, res) => {
      throw Error()
 }))
@@ -63,6 +67,7 @@ app.use((err, req, res, next) => {
           next()
      }
 })
+
 
 
 //SERVERS 

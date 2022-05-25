@@ -16,6 +16,7 @@ import Verification from "./Verification/Verification"
 import Settings from "./Settings/Settings"
 import PageFooter from "./PageFooter"
 import UsagePolicy from "./UsagePolicy/UsagePolicy";
+import logo from "./logo.png"
 export default function NavBar({ flash }) {
      const { isOn, type, msg } = flash
      const { user } = useContext(Context)
@@ -27,7 +28,8 @@ export default function NavBar({ flash }) {
                     <div className='NavBar'>
 
                          <div className='Logo'>
-                              <Typography component={NavLink} to="/" varian="button" style={{ textDecoration: "none", color: "black" }} fontSize={"1.5rem"}>Фактура</Typography>
+                              {/* <Typography component={NavLink} to="/" varian="button" style={{ textDecoration: "none", color: "black", fontSize: "1.5rem", fontFamili: "roboto" }} fontSize={"1.5rem"}>invoice</Typography> */}
+                              <img src={logo} height="50px" alt="logo" />
                          </div>
                          <div className='NavLink'>
 
@@ -49,7 +51,7 @@ export default function NavBar({ flash }) {
                                    <Typography noWrap fontSize={"0.9em"} align="center">Одјави се</Typography>
                               </Button>
 
-                              <Avatar alt="company logo" src={user.logo} />
+                              <Avatar component={NavLink} to="/settings" alt="company logo" src={user.logo} />
                          </div >
                     </div >
                     <div className='Flash'>
@@ -68,8 +70,9 @@ export default function NavBar({ flash }) {
                          <Route path="/usagepolicy" element={<UsagePolicy />} />
                          <Route path="*" element={<p>NOT FOUND</p>} />
                     </Routes>
+                    <PageFooter />
                </Router >
-               <PageFooter />
+
 
           </>
 

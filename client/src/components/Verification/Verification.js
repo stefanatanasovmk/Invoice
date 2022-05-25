@@ -9,16 +9,17 @@ import "../../style/Verification.css"
 
 export default function Verification({ flash }) {
      const inputStyle = {
-          margin: "5px",
+          margin: "10px",
           width: "100%",
-          height: "30%"
+          height: "30%",
      }
      const iconStyle = {
           height: "80px",
           width: "80px",
           borderRadius: "100%",
           boxShadow: "1px 1px 10px -3px black",
-          margin: "10px"
+          margin: "10px",
+          backgroundColor: "white"
 
      }
      const { flashPopUp } = useContext(Context)
@@ -53,9 +54,9 @@ export default function Verification({ flash }) {
                     }
                </div>
                <div className="Form">
-                    <div className="Icon">
-                         <AccountCircleIcon style={iconStyle} />
-                    </div>
+                    {/* <div className="Icon"> */}
+                    <AccountCircleIcon style={iconStyle} />
+                    {/* </div> */}
                     <div className="Inputs">
                          <TextField style={inputStyle} label="Внесете го кодот за верификација" type="text" variant="outlined"
                               value={code} onChange={setCode} />

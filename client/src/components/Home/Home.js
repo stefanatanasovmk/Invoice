@@ -9,7 +9,6 @@ import Loader from "../../Loader"
 import Context from "../../context/Context";
 import DateFnsAdapter from "@date-io/date-fns";
 
-
 export default function Home() {
      const { flashPopUp } = useContext(Context)
      const [invoices, setInvoices] = useState([])
@@ -24,9 +23,15 @@ export default function Home() {
 
      useEffect(() => {
           axios.get("/api/allinvoices")
-               .then(res => setInvoices(res.data))
-               .catch(e => flashPopUp("warning", e.response.data.msg))
-          setIsLoading(false)
+               .then(res => {
+                    setInvoices(res.data)
+                    setIsLoading()
+               })
+               .catch(e => {
+                    flashPopUp("warning", e.response.data.msg)
+                    setIsLoading()
+               })
+
      }, [])
      useEffect(() => {
           const allTotals = calculateTotal(invoices, "totalVAT")
@@ -63,10 +68,10 @@ export default function Home() {
                     <React.Fragment>
                          <div className="Cards">
                               <Card className="Cards" cardFor={"Ненаплатени фактури"} number={unpayedInvoices} />
-                              <Card className="Cards" cardFor={"Вкупно данок"} number={totalVAT} />
-                              <Card className="Cards" cardFor={"Вкупно ненаплатено"} number={totalUnpayed} />
-                              <Card className="Cards" cardFor={"Вкупно наплатено"} number={totalPayed} />
-                              <Card className="Cards" cardFor={"Вкупно без ДДВ"} number={totalWithoutVAT} />
+                              <Card className="Cards" cardFor={"Данок"} number={totalVAT} />
+                              <Card className="Cards" cardFor={"За наплата"} number={totalUnpayed} />
+                              <Card className="Cards" cardFor={"Наплатено"} number={totalPayed} />
+                              <Card className="Cards" cardFor={"Профит"} number={totalWithoutVAT} />
                          </div>
                          <div className="InvoicesTable">
                               <InvoicesTableHeader />

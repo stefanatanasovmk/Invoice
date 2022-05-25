@@ -10,9 +10,11 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom"
 import areRowsCalculated from "../../functions/areRowsCalculated";
 import PrintIcon from '@mui/icons-material/Print';
-
+import useToggle from "../../hooks/useToggle";
+import Loader from "../../Loader";
 export default function Invoice() {
      const { flashPopUp, user } = useContext(Context)
+     const [isLoading, setIsLoading] = useToggle(true)
      let navigate = useNavigate()
      const { id } = useParams()
      const [fetchedProductsData, setFetchedProductsData] = useState([])
@@ -77,11 +79,19 @@ export default function Invoice() {
                          setFetchedProductsData(res.data.products)
                          setFetchedInvoiceData(res.data)
                          setRowsStatus([])
-                    }).catch(e => flashPopUp("error", e.response.data.msg))
+                         setIsLoading()
+                    })
+                    .catch((e) => {
+                         flashPopUp("error", e.response.data.msg)
+                         setIsLoading()
+                    })
+          } else {
+               setIsLoading()
           }
      }
      useEffect(() => {
           getSavedInvoice()
+
      }, [])
      const companyInfo = {
           name: user.companyName, address: user.address, telephone: user.tel, mail: user.username, bankAcc: user.bankAccount, tax: user.taxNumber,
@@ -92,35 +102,39 @@ export default function Invoice() {
      }
      return (
           <div className="Invoice">
-               <Context.Provider value={{ getRowData, removeRowData, companyInfo, isRowEditing, isRowDeleted }}>
-                    <CompanyInfo companyInfo={companyInfo} />
-                    <ClientAndInvoiceInfo
-                         getClientAndInvoiceData={getClientAndInvoiceData}
-                         flashPopUp={flashPopUp} fetchedInvoiceData={fetchedInvoiceData}
-                         id={id} />
-                    <InvoiceTable
-                         products={fetchedProductsData}
-                         getAllTotals={getAllTotals}
-                    />
-               </Context.Provider>
-               {id ?
-                    <>
-                         <div className="BottomBtns" >
-                              <Button onClick={handlePrint} variant="contained" size="small" endIcon={<PrintIcon />}>Принт</Button>
-                              <Button onClick={saveNewInvoice} variant="contained" size="small" endIcon={<SaveOutlinedIcon />}>Зачувај како нова фактура</Button>
-                              <Button onClick={saveEditedInvoice} variant="contained" size="small" endIcon={<SaveOutlinedIcon />}>Зачувај ја промената</Button>
-                         </div>
-
-                    </>
+               {isLoading ?
+                    <Loader />
                     :
-                    <div className="BottomBtns" >
-                         {/* Print CSS is styled in Invoice.css */}
-                         <Button onClick={handlePrint} variant="contained" size="small" endIcon={<PrintIcon />}>Принт</Button>
-                         <Button onClick={saveNewInvoice} variant="contained" className="button" size="small" endIcon={<SaveOutlinedIcon />}>Зачувај</Button>
-                    </div>
+                    <>
+                         <Context.Provider value={{ getRowData, removeRowData, companyInfo, isRowEditing, isRowDeleted }}>
+                              <CompanyInfo companyInfo={companyInfo} />
+                              <ClientAndInvoiceInfo
+                                   getClientAndInvoiceData={getClientAndInvoiceData}
+                                   flashPopUp={flashPopUp} fetchedInvoiceData={fetchedInvoiceData}
+                                   id={id} />
+                              <InvoiceTable
+                                   products={fetchedProductsData}
+                                   getAllTotals={getAllTotals}
+                              />
+                         </Context.Provider>
+                         {id ?
+                              <>
+                                   <div className="BottomBtns" >
+                                        <Button onClick={handlePrint} variant="contained" size="small" endIcon={<PrintIcon />}>Принт</Button>
+                                        <Button onClick={saveNewInvoice} variant="contained" size="small" endIcon={<SaveOutlinedIcon />}>Зачувај како нова фактура</Button>
+                                        <Button onClick={saveEditedInvoice} variant="contained" size="small" endIcon={<SaveOutlinedIcon />}>Зачувај ја промената</Button>
+                                   </div>
+
+                              </>
+                              :
+                              <div className="BottomBtns" >
+                                   {/* Print CSS is styled in Invoice.css */}
+                                   <Button onClick={handlePrint} variant="contained" size="small" endIcon={<PrintIcon />}>Принт</Button>
+                                   <Button onClick={saveNewInvoice} variant="contained" className="button" size="small" endIcon={<SaveOutlinedIcon />}>Зачувај</Button>
+                              </div>
+                         }
+                    </>
                }
-
-
           </div >
      )
 }

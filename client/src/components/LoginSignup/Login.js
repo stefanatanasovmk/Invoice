@@ -13,7 +13,8 @@ export default function Login({ email, password, login, register, setLoginPasswo
           width: "80px",
           borderRadius: "100%",
           boxShadow: "1px 1px 10px -3px black",
-          margin: "10px"
+          margin: "10px",
+          backgroundColor: "white"
 
      }
 
