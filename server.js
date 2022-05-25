@@ -53,7 +53,7 @@ app.get("/api/isauthenticated", async (req, res) => {
      req.isAuthenticated() ? res.json({ status: true, user: req.user }) : res.json({ status: false })
 })
 
-app.get('/*', (req, res) {
+app.get('/*', (req, res) => {
      res.redirect("/")
 })
 
