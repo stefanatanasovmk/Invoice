@@ -53,8 +53,13 @@ app.get("/api/isauthenticated", async (req, res) => {
      req.isAuthenticated() ? res.json({ status: true, user: req.user }) : res.json({ status: false })
 })
 
+<<<<<<< HEAD
 app.get('/*', (req, res) {
  res.redirect("/")
+=======
+app.get('/*', (req, res) => {
+     res.redirect("/")
+>>>>>>> 61520b59db601a8b1a739ff65fdf4167b72bcac9
 })
 
 app.all("*", WrapError((req, res) => {
@@ -68,6 +73,7 @@ app.use((err, req, res, next) => {
           next()
      }
 })
+
 
 
 //SERVERS 

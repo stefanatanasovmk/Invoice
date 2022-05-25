@@ -4,16 +4,11 @@ import Header from "./Header";
 import "../../style/InvoiceTable.css"
 import Footer from "./Footer";
 import { v4 as uuidv4 } from 'uuid';
-import Loader from "../../Loader";
-import { esES } from "@mui/x-data-grid";
-import { RollerShadesTwoTone } from "@mui/icons-material";
 
 export default function InvoiceTable({ getAllTotals, products }) {
-
      const [allTotal, setAllTotal] = useState(0)
      const [allTotalVAT, setAllTotalVAT] = useState(0)
      const [allTotalWithoutVAT, setAllTotalWithoutVAT] = useState(0)
-     const [isLoading, setIsLoading] = useState(true)
      const plusTotal = (allTotal, totalVAT, totalWithoutVAT) => {
           setAllTotal((prev) => prev + allTotal)
           setAllTotalVAT((prev) => prev + totalVAT)

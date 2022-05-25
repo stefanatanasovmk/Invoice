@@ -73,7 +73,7 @@ export default function LoginSignup({ flash }) {
      }
 
      return (
-          <React.Fragment>
+          <div className="LoginSignup">
                <div className="Flash">
                     {isOn &&
 
@@ -118,9 +118,8 @@ export default function LoginSignup({ flash }) {
                                         login={setIsLoggingIn} />
                               </React.Fragment>
                          }
-
                     </>
                }
-          </React.Fragment >
+          </div>
      )
 }
