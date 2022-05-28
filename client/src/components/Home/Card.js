@@ -1,6 +1,5 @@
 import React from "react";
 export default function Card({ cardFor, number }) {
-
      return (
           <div className="Card">
                <span
@@ -9,7 +8,8 @@ export default function Card({ cardFor, number }) {
                          textAlign: "center"
                     }}>{cardFor}</span>
                <span
-                    style={{
+                    st
+                    yle={{
                          paddingTop: "15px",
                          fontSize: "1.5em"
                     }}>{number}</span>

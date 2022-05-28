@@ -22,6 +22,9 @@ const UserSchema = new Schema({
           type: Schema.Types.ObjectId,
           ref: "Invoice"
      }],
+     lastLogin: {
+          type: Date
+     },
      verified: {
           type: Boolean,
           default: false
@@ -35,6 +38,8 @@ const UserSchema = new Schema({
           date: Date.now
      }
 
-})
+},
+     { timestamps: true }
+)
 UserSchema.plugin(passportLocalMongoose)
 module.exports = mongoose.model("User", UserSchema)

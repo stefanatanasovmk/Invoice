@@ -50,7 +50,7 @@ app.use("/", user)
 
 
 app.get("/api/isauthenticated", async (req, res) => {
-     req.isAuthenticated() ? res.json({ status: true, user: req.user }) : res.json({ status: false })
+     req.isAuthenticated() ? res.json({ status: true, user: req.user }) : res.json({ status: false, msg: "Настана грешка, ве молиме обидете се повторно" })
 })
 
 app.get('/*', (req, res) => {

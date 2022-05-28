@@ -139,29 +139,31 @@ export default function UserSettings({ inputsStyle, user, flashPopUp, changePass
                          />
                          <Button variant="contained" fullWidth onClick={handleEmailChange}>Промени емаил</Button>
                     </div>
+                    <div className="DeleteBtnDiv">
+                         <Button variant="contained" fullWidth onClick={setOpenModal}>
+                              Избриши го профилот
+                         </Button>
+                         <Modal open={openModal}>
+                              <Box style={modalStyle}>
+                                   <Typography
+                                        variant="button">
+                                        Со бришење на вашиот профил, сите ваши фактури и клиенти ќе бидат избришани од системот, дали сте сигурни дека сакате да продолжете?
+                                   </Typography>
+                                   <div style={modalBtnsStyle}>
+                                        <Button
+                                             variant="outlined"
+                                             onClick={deleteUser}>
+                                             ДА
+                                        </Button>
+                                        <Button
+                                             variant="contained" onClick={setOpenModal}>
+                                             НЕ
+                                        </Button>
+                                   </div>
 
-                    <Button variant="contained" fullWidth onClick={setOpenModal}>
-                         Избриши го профилот
-                    </Button>
-                    <Modal open={openModal}>
-                         <Box style={modalStyle}>
-                              <Typography
-                                   variant="button">
-                                   Со бришење на вашиот профил, сите ваши фактури и клиенти ќе бидат избришани од системот, дали сте сигурни дека сакате да продолжете?
-                              </Typography>
-                              <div style={modalBtnsStyle}>                              <Button
-                                   variant="outlined"
-                                   onClick={deleteUser}>
-                                   ДА
-                              </Button>
-                                   <Button
-                                        variant="contained" onClick={setOpenModal}>
-                                        НЕ
-                                   </Button>
-                              </div>
-
-                         </Box>
-                    </Modal>
+                              </Box>
+                         </Modal>
+                    </div>
                </div>
           </div>
      )

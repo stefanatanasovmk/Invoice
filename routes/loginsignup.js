@@ -42,7 +42,10 @@ router.post("/api/signup", async (req, res) => {
 
 })
 //Login
-router.post("/api/login", passport.authenticate('local', { failureMessage: false }), (req, res) => {
+router.post("/api/login", passport.authenticate('local', { failureMessage: false }), async (req, res) => {
+     const user = await User.findById(req.user.id)
+     user.lastLogin = Date.now()
+     await user.save()
      res.status(200).json({ msg: "Успешно се најавивте" })
 });
 

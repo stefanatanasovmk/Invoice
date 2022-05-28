@@ -1,0 +1,17 @@
+.ErrorPage {
+     width: 100%;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+}
+
+.ErrorDiv {
+     width: 70%;
+     min-height: 300px;
+     max-height: 400px;
+     display: flex;
+     flex-direction: column;
+     justify-content: space-around;
+     align-items: center;
+}

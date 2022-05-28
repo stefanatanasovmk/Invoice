@@ -12,8 +12,16 @@
      align-items: center;
 }
 
+.HamburgerMenu {
+     display: none;
+}
+
+.HamburgerMenuIcon:hover {
+     cursor: pointer;
+}
+
 .NavLink {
-     width: 70%;
+     width: 60%;
      display: flex;
      flex-direction: row;
      justify-content: space-between;
@@ -35,4 +43,19 @@
 
 .btnsText {
      font-size: small;
+}
+
+
+@media (max-width:700px) {
+     .NavBar {
+          justify-content: space-around;
+     }
+
+     .NavLink {
+          display: none;
+     }
+
+     .HamburgerMenu {
+          display: inline;
+     }
 }

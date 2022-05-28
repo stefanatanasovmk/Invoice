@@ -11,8 +11,7 @@ const PasswordRecoverySchema = new Schema({
           type: Date,
           default: Date.now,
           expires: 3600
-     },
-
+     }
 })
 module.exports = mongoose.model("PasswordRecovery", PasswordRecoverySchema)
 
