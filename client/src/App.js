@@ -5,10 +5,16 @@ import NavBar from "./components/NavBar";
 import Context from "./context/Context";
 import "./style/App.css"
 import Verification from "./components/Verification/Verification"
-import useToggle from "./hooks/useToggle";
 function App() {
   //to know when to fetch updated data from the server
-  const [isUserDataUpdated, setIsUserDataUpdated] = useToggle(false)
+  const [isUserDataUpdated, setIsUserDataUpdated] = useState({ status: "no" })
+  const changeUserData = () => {
+    setIsUserDataUpdated({ status: "yes" })
+    setTimeout(() => {
+      setIsUserDataUpdated({ status: "no" })
+
+    }, 5000)
+  }
   //Flash state 
   const [flashIsOnTypeMsg, setFlash] = useState({ isOn: false, type: "", msg: "" })
   //Flash global function is used in Context in every component and it's displayed in NavBar & LoginSignup components
@@ -21,23 +27,24 @@ function App() {
   //User state & control
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [user, setUser] = useState({})
-  const fetchUserStatusAndData = () => {
-    axios.get("/api/isauthenticated")
-      .then((res) => {
-        setIsAuthenticated(res.data.status)
-        if (res.data.status) {
-          setUser(res.data.user)
-        }
-      })
-      .catch(e => flashPopUp("error", "Настана грешка, ве молиме обидете се повторно"))
-  }
+
   useEffect(() => {
+    async function fetchUserStatusAndData() {
+      axios.get("/api/isauthenticated")
+        .then((res) => {
+          setIsAuthenticated(res.data.status)
+          if (res.data.status) {
+            setUser(res.data.user)
+          }
+        })
+        .catch(e => flashPopUp("error", "Проблеми со серверот, ве молиме обидете се повторно."))
+    }
     fetchUserStatusAndData()
   }, [isUserDataUpdated], [])
 
   return (
     <div className="App">
-      <Context.Provider value={{ isAuthenticated, user, flashPopUp, setIsUserDataUpdated }}>
+      <Context.Provider value={{ isAuthenticated, user, flashPopUp, changeUserData }}>
         {
           isAuthenticated ?
             user.verified ?

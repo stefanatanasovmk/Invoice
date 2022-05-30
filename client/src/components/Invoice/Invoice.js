@@ -64,6 +64,8 @@ export default function Invoice() {
           const { _id } = fetchedInvoiceData
           const data = { allRowsData, allTotals, _id, clientAndInvoiceData }
           const isFinnished = areRowsCalculated(rowsStatus)
+          console.log(isFinnished)
+
           if (isFinnished) {
                axios.post("/api/saveeditedinvoice", data).then(res => flashPopUp("success", res.data.msg))
                     .catch(e => flashPopUp("error", e.response.data.msg))
@@ -71,7 +73,6 @@ export default function Invoice() {
                flashPopUp("warning", "Ве молиме потврдете ги сите артикли во фактурата, или додајте артикл")
           }
      }
-
      const getSavedInvoice = async () => {
           if (id) {
                axios.get(`/api/getinvoice/${id}`)
@@ -89,6 +90,7 @@ export default function Invoice() {
                setIsLoading()
           }
      }
+
      useEffect(() => {
           getSavedInvoice()
      }, [])
@@ -119,17 +121,17 @@ export default function Invoice() {
                          {id ?
                               <>
                                    <div className="BottomBtns" >
+                                        <Button onClick={saveNewInvoice} variant="contained" size="small" color="success" endIcon={<SaveOutlinedIcon />}>Зачувај како нова фактура</Button>
                                         <Button onClick={handlePrint} variant="contained" size="small" endIcon={<PrintIcon />}>Принт</Button>
-                                        <Button onClick={saveNewInvoice} variant="contained" size="small" endIcon={<SaveOutlinedIcon />}>Зачувај како нова фактура</Button>
-                                        <Button onClick={saveEditedInvoice} variant="contained" size="small" endIcon={<SaveOutlinedIcon />}>Зачувај ја промената</Button>
+                                        <Button onClick={saveEditedInvoice} variant="contained" size="small" color="secondary" endIcon={<SaveOutlinedIcon />}>Зачувај ја промената</Button>
                                    </div>
 
                               </>
                               :
-                              <div className="BottomBtns" >
+                              <div className="SaveBtnDiv" >
                                    {/* Print CSS is styled in Invoice.css */}
-                                   <Button onClick={handlePrint} variant="contained" size="small" endIcon={<PrintIcon />}>Принт</Button>
-                                   <Button onClick={saveNewInvoice} variant="contained" className="button" size="small" endIcon={<SaveOutlinedIcon />}>Зачувај</Button>
+                                   {/* <Button onClick={handlePrint} variant="contained" size="small" endIcon={<PrintIcon />}>Принт</Button> */}
+                                   <Button onClick={saveNewInvoice} variant="contained" color="success" className="button" size="small" endIcon={<SaveOutlinedIcon />}>Зачувај</Button>
                               </div>
                          }
                     </>

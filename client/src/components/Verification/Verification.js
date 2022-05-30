@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { TextField, Button, Link } from "@mui/material";
+import React, { useContext, useEffect } from "react";
+import { TextField, Button, Link, Typography } from "@mui/material";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import useInputControl from "../../hooks/useInputControl";
 import axios from "axios";
@@ -22,7 +22,8 @@ export default function Verification({ flash }) {
           backgroundColor: "white"
 
      }
-     const { flashPopUp } = useContext(Context)
+
+     const { flashPopUp, user } = useContext(Context)
      const { isOn, type, msg } = flash
      const [code, setCode] = useInputControl("")
      const verify = () => {
@@ -44,6 +45,14 @@ export default function Verification({ flash }) {
                     flashPopUp("error", e.response.data.msg))
 
      }
+     const logout = () => {
+          axios.post("/api/logout")
+               .then((res) => {
+                    window.location.reload()
+               })
+               .catch(e =>
+                    flashPopUp("error", e.response.data.msg))
+     }
      return (
 
           <div className="Verification">
@@ -54,16 +63,17 @@ export default function Verification({ flash }) {
                     }
                </div>
                <div className="Form">
-                    {/* <div className="Icon"> */}
                     <AccountCircleIcon style={iconStyle} />
-                    {/* </div> */}
-                    <div className="Inputs">
+                    <div className="Inputs" style={{ width: "30%" }}>
+                         <Typography style={{ width: "100%" }} align="center" variant="subtitle1">Проверете го вашиот емаил „{user.username}“ каде ви испративме код за верификација, доколку мејлот не е во „inbox“, проверете во „spam“. Понекогаш потребно е повеќе време емаилот да биде испратен.</Typography>
                          <TextField style={inputStyle} label="Внесете го кодот за верификација" type="text" variant="outlined"
                               value={code} onChange={setCode} />
                          <Button style={inputStyle} variant="contained" onClick={verify} >Потврди</Button>
                          <Link className="Link" onClick={sendCodeAgain} underline="none">
                               {'Испрати го кодот повторно'}
                          </Link>
+                         <Button style={inputStyle} variant="outlined" color="warning" onClick={logout} >Одлогирај се</Button>
+
                     </div>
                </div>
           </div>

@@ -1,3 +1,4 @@
+/* Invoice table and show invoices table have some same class names, that matches the styling in both, use more specific targeting to override the properties from Header&Row.css */
 .Home {
      width: 100%;
      display: flex;
@@ -13,6 +14,7 @@
      justify-content: space-between;
      flex-wrap: wrap;
      margin-top: 3%;
+     font-size: 1.5em;
 }
 
 .Card {
@@ -25,12 +27,13 @@
      min-width: 100px;
      height: 120px;
      border-radius: 5px;
-     padding: 1%;
+     /* padding: 1%; */
      box-shadow: 6px 7px 7px -6px black;
      margin: 5px;
      background-color: #8BC6EC;
      background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
 }
+
 
 .InvoicesTable {
      width: 100%;
@@ -39,48 +42,132 @@
      align-items: center;
      flex-wrap: wrap;
      margin-top: 3%;
+     padding-bottom: 60px;
 }
 
 .InvoiceRow {
      width: 80%;
      display: flex;
      flex-direction: row;
-     justify-content: space-around;
+     justify-content: space-evenly;
      align-items: center;
-     flex-wrap: wrap;
+     /* flex-wrap: wrap; */
      border: 1px solid black;
-
 }
 
-/* td width */
-.seeInvoice {
+.HeaderRow {
+     border-top-left-radius: 5px;
+     border-top-right-radius: 5px;
+     background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+}
+
+.SmallScreenHeader {
+     display: none;
+}
+
+.DesktopHeader,
+.HeaderAndTableRowsForSmallScreen {
+     width: 100%;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     /* box-shadow: 6px 7px 7px -6px black; */
+}
+
+
+
+.InvoiceRow>.seeInvoice {
      width: 5%;
 }
 
-.client {
+.InvoiceRow>.client {
      width: 30%;
 }
 
-.paymentDate {
+.InvoiceRow>.paymentDate {
      width: 15%;
 }
 
-.priceWithoutVat {
+.InvoiceRow>.priceWithoutVat {
      width: 20%;
 }
 
-.VAT {
+.InvoiceRow>.VAT {
      width: 10%;
 }
 
-.total {
+.InvoiceRow>.total {
      width: 20%;
 }
 
-.payed {
+.InvoiceRow>.payed {
      width: 5%;
 }
 
-.delete {
+.InvoiceRow>.delete {
      width: 5%;
+}
+
+.InvoiceRow>.borderOnDesktop {
+     border-right: 2px solid black;
+}
+
+@media (max-width:700px) {
+     .Cards {
+          justify-content: center;
+          flex-wrap: wrap;
+          width: 95%;
+          font-size: 0.7em;
+     }
+
+     .InvoiceRow {
+          width: 100%;
+          flex-direction: column;
+          align-items: flex-end;
+     }
+
+     .InvoiceRow>.td {
+          display: flex;
+          flex-wrap: wrap;
+          width: 100%;
+          border-bottom: 1px solid black;
+     }
+
+     .InvoiceRow>.delete {
+          border-bottom: 0px;
+     }
+
+     .DesktopHeader {
+          display: none;
+     }
+
+     .SmallScreenHeader {
+          display: inline;
+     }
+
+     .HeaderAndTableRowsForSmallScreen {
+          width: 90%;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 2%;
+          border-radius: 5px;
+     }
+
+     .InvoiceRow>.borderOnDesktop {
+          border-right: none;
+     }
+
+     .HeaderRow {
+          border-top-left-radius: 5px;
+          border-top-right-radius: 0px;
+          border-bottom-left-radius: 5px;
+     }
+
+     .TableDataRow {
+          border-top-right-radius: 5px;
+          border-bottom-right-radius: 5px;
+     }
 }

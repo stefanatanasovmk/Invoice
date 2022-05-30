@@ -1,13 +1,18 @@
 import React from "react";
-import { TextField, Button, Link, Typography } from "@mui/material";
-
+import { TextField, Button, Link, Typography, InputAdornment } from "@mui/material";
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import useToggle from "../../hooks/useToggle";
+const inputStyle = {
+     margin: "5px",
+     width: "100%",
+     height: "30%"
+}
+const cursorPointer = { cursor: "pointer" }
 export default function ForgottenPassword({ setEmail, back, submit, isSubmited, setIsSubmited, setPassword1, setPassword2, password1, password2, email, setCode, code, changePassword }) {
-     const inputStyle = {
-          margin: "5px",
-          width: "100%",
-          height: "30%"
-     }
 
+     const [isPassword1Visible, setIsPassword1Visible] = useToggle(false)
+     const [isPassword2Visible, setIsPassword2Visible] = useToggle(false)
      return (
           <div className="Form">
                <div className="Inputs">
@@ -20,12 +25,55 @@ export default function ForgottenPassword({ setEmail, back, submit, isSubmited, 
                                    value={code}
                                    helperText="Внесете го кодот што го добивте во емаил"
                               />
-                              <TextField style={inputStyle} label="Внесете ја новата лозинка" type="password" variant="outlined" onChange={setPassword1}
+                              <TextField
+                                   style={inputStyle}
+                                   label="Внесете ја новата лозинка"
+                                   type={isPassword1Visible ? "text" : "password"}
+                                   variant="outlined"
+                                   onChange={setPassword1}
                                    value={password1}
-                              />
-                              <TextField style={inputStyle} label="Повторете ја новата лозинка" type="password" variant="outlined" onChange={setPassword2}
-                                   value={password2}
+                                   InputProps={{
+                                        startAdornment:
+                                             <InputAdornment position="start">
+                                                  {isPassword1Visible ?
+                                                       <VisibilityOffIcon
+                                                            style={cursorPointer}
+                                                            onClick={setIsPassword1Visible}
+                                                       />
+                                                       :
+                                                       <RemoveRedEyeIcon
+                                                            style={cursorPointer}
+                                                            onClick={setIsPassword1Visible}
+                                                       />
+                                                  }
+                                             </InputAdornment>
 
+                                   }}
+                              />
+                              <TextField
+                                   style={inputStyle}
+                                   label="Повторете ја новата лозинка"
+                                   type={isPassword2Visible ? "text" : "password"}
+                                   variant="outlined"
+                                   onChange={setPassword2}
+                                   value={password2}
+                                   InputProps={{
+                                        startAdornment:
+                                             <InputAdornment position="start">
+                                                  {isPassword2Visible ?
+                                                       <VisibilityOffIcon
+                                                            style={cursorPointer}
+                                                            onClick={setIsPassword2Visible}
+                                                       />
+                                                       :
+                                                       <RemoveRedEyeIcon
+                                                            style={cursorPointer}
+                                                            onClick={setIsPassword2Visible}
+                                                       />
+                                                  }
+                                             </InputAdornment>
+
+                                   }}
                               />
                               <Button style={inputStyle} variant="contained" onClick={changePassword} >Потврди</Button>
                               <Link className="Link" underline="none" onClick={setIsSubmited}>

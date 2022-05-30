@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { TextField, Button } from "@mui/material";
+
+//Styling for the whole component is done in Setings.js & Settings.css except for the styling writen inline
+
 export default function CompanyInfo({ inputsStyle, user, submit, flashPopUp }) {
      const [companyName, setCompanyName] = useState("")
      const [address, setAddress] = useState("")
@@ -31,7 +34,6 @@ export default function CompanyInfo({ inputsStyle, user, submit, flashPopUp }) {
           setTaxNumber(user.taxNumber)
 
      }, [user])
-
      return (
           <div className="InputRows">
                <div className="InputGroups">
@@ -44,8 +46,12 @@ export default function CompanyInfo({ inputsStyle, user, submit, flashPopUp }) {
                <div className="InputGroups">
                     <TextField variant="outlined" label="Жиро сметка" value={bankAccount} onChange={(e) => setBankAccount(e.target.value)} type="text" fullWidth style={inputsStyle} />
                     <TextField variant="outlined" label="Даночен број" value={taxNumber} onChange={(e) => setTaxNumber(e.target.value)} type="text" fullWidth style={inputsStyle} />
-                    <TextField variant="outlined" type="file" fullWidth onChange={handleImageUpload}
-                         helperText="Логото на вашата компанија" style={inputsStyle} encType="multipart/form-data" />
+                    <div className="ChangeLogoInput">
+                         <TextField variant="outlined" fullWidth type="file" onChange={handleImageUpload}
+                              helperText="Логото на вашата компанија" style={inputsStyle} encType="multipart/form-data" />
+
+                         {user.logo.path && <img src={user.logo.path} alt="Логото на вашата компанија" style={{ width: "20%", height: "80%" }} />}
+                    </div>
                     <Button variant="contained" onClick={handleSubmit} fullWidth>Зачувај</Button>
 
                </div>

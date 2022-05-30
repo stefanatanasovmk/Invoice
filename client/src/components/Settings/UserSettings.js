@@ -4,27 +4,28 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import useToggle from "../../hooks/useToggle";
 import useInputControl from "../../hooks/useInputControl";
-
+import { useNavigate } from "react-router-dom";
 const modalStyle = {
      position: 'absolute',
      top: '50%',
      left: '50%',
      transform: 'translate(-50%, -50%)',
-     width: "80%",
+     width: "40%",
      bgcolor: 'background.paper',
      border: '2px solid black',
      backgroundColor: "white",
      boxShadow: 24,
      p: 4,
+     padding: "5%"
 };
 const modalBtnsStyle = {
      display: "flex", flexDirection: "row", justifyContent: "space-around", paddingBottom: "5px"
 }
 
 export default function UserSettings({ inputsStyle, user, flashPopUp, changePassword, changeEmail, deleteUser }) {
-
-     const [openModal, setOpenModal] = useToggle(false);
-
+     const navigate = useNavigate()
+     const [passConfirmModal, setPassConfirmModal] = useToggle(false);
+     const [emailConfirmModal, setEmailConfirmModal] = useToggle(false)
 
 
      const [isOldPasswordVisible, setIsOldPasswordVisible] = useToggle(false)
@@ -45,6 +46,7 @@ export default function UserSettings({ inputsStyle, user, flashPopUp, changePass
      }
      const handleEmailChange = () => {
           changeEmail(email)
+          navigate(0)
      }
      useEffect(() => {
           setEmail(user.username)
@@ -52,7 +54,8 @@ export default function UserSettings({ inputsStyle, user, flashPopUp, changePass
      return (
 
           <div className="InputRows">
-               <div className="InputGroups">               <TextField
+               <div className="InputGroups">
+                    <TextField
                     variant="outlined"
                     label="Стара лозинка"
                     type={isOldPasswordVisible ? "text" : "password"}
@@ -61,7 +64,8 @@ export default function UserSettings({ inputsStyle, user, flashPopUp, changePass
                     value={oldPassword}
                     onChange={setOldPassword}
                     InputProps={{
-                         startAdornment: <InputAdornment position="start">
+                         startAdornment:
+                              <InputAdornment position="start">
                               {isOldPasswordVisible ?
                                    <VisibilityOffIcon
                                         style={cursorPointer}
@@ -137,13 +141,34 @@ export default function UserSettings({ inputsStyle, user, flashPopUp, changePass
                               value={email}
                               onChange={(e) => setEmail(e.target.value)}
                          />
-                         <Button variant="contained" fullWidth onClick={handleEmailChange}>Промени емаил</Button>
+                         <Button variant="contained" fullWidth onClick={setEmailConfirmModal}>Промени емаил</Button>
+                         <Modal open={emailConfirmModal}>
+                              <Box style={modalStyle}>
+                                   <Typography
+                                        variant="button">
+                                        Доколку продолжете со промена на емаилот, ќе треба да го верификувате вашиот нов емаил. дали сте сигурни дека сакате да продолжете?
+                                   </Typography>
+                                   <div style={modalBtnsStyle}>
+                                        <Button
+                                             variant="outlined"
+                                             onClick={handleEmailChange}>
+                                             ДА
+                                        </Button>
+                                        <Button
+                                             variant="contained" onClick={setEmailConfirmModal}>
+                                             НЕ
+                                        </Button>
+                                   </div>
+
+                              </Box>
+                         </Modal>
+
                     </div>
                     <div className="DeleteBtnDiv">
-                         <Button variant="contained" fullWidth onClick={setOpenModal}>
+                         <Button variant="contained" fullWidth onClick={setPassConfirmModal}>
                               Избриши го профилот
                          </Button>
-                         <Modal open={openModal}>
+                         <Modal open={passConfirmModal}>
                               <Box style={modalStyle}>
                                    <Typography
                                         variant="button">
@@ -156,7 +181,7 @@ export default function UserSettings({ inputsStyle, user, flashPopUp, changePass
                                              ДА
                                         </Button>
                                         <Button
-                                             variant="contained" onClick={setOpenModal}>
+                                             variant="contained" onClick={setPassConfirmModal}>
                                              НЕ
                                         </Button>
                                    </div>

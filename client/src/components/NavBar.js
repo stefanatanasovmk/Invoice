@@ -17,11 +17,8 @@ import Settings from "./Settings/Settings"
 import PageFooter from "./PageFooter"
 import UsagePolicy from "./UsagePolicy/UsagePolicy";
 import ErrorPage from "./404/ErrorPage"
-import logo from "./logo.png"
-
-import useToggle from "../hooks/useToggle";
+import logo from "../images/logo.png"
 import MenuIcon from '@mui/icons-material/Menu';
-import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import { Menu, MenuItem } from "@mui/material";
 export default function NavBar({ flash }) {
      const { isOn, type, msg } = flash

@@ -21,6 +21,18 @@
      align-items: center;
 }
 
+.DevelopedByDiv {
+     display: flex;
+     flex-direction: row;
+     justify-content: flex-start;
+     align-items: center;
+}
+
+.AtanasovFooterLogo {
+     height: 45px;
+     width: 45px;
+}
+
 @media print {
      .PageFooter {
           display: none;

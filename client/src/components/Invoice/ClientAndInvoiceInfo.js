@@ -4,8 +4,14 @@ import { Autocomplete, TextField } from "@mui/material";
 import { MobileDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import axios from "axios";
+
+
 export default function ClientAndInvoiceInfo({ getClientAndInvoiceData, flashPopUp, fetchedInvoiceData, id }) {
-     const day = new Date
+     const day = new Date()
+     const anotherDay = new Date()
+     const defaultPaymentDay = new Date(anotherDay.setDate(anotherDay.getDate() + 90))
+
+
      const [clientName, setClientName] = useState("")
      const [address, setAddress] = useState("")
      const [tel, setTel] = useState("")
@@ -13,23 +19,22 @@ export default function ClientAndInvoiceInfo({ getClientAndInvoiceData, flashPop
      const [invoiceNumber, setInvoiceNumber] = useState("")
      const [dateOfExecution, setDateOfExecution] = useState(day.toLocaleDateString('en-CA'))
      const [dateOfIssuing, setDateOfIssuing] = useState(day.toLocaleDateString('en-CA'))
-     const [paymentDate, setPaymentDate] = useState(day.toLocaleDateString('en-CA'))
+     const [paymentDate, setPaymentDate] = useState(defaultPaymentDay.toLocaleDateString('en-CA'))
 
      const [savedClients, setSavedClients] = useState([])
      useEffect(() => {
-          const data = { clientName, address, tel, email, invoiceNumber, dateOfExecution, dateOfExecution, dateOfIssuing, paymentDate }
+          const data = { clientName, address, tel, email, invoiceNumber, dateOfExecution, dateOfIssuing, paymentDate }
           getClientAndInvoiceData(data)
 
-     }, [clientName, address, tel, email, invoiceNumber, dateOfExecution, dateOfExecution, dateOfIssuing, paymentDate])
+     }, [clientName, address, tel, email, invoiceNumber, dateOfExecution, dateOfIssuing, paymentDate])
      useEffect(() => {
           axios.get("/api/clients")
                .then(res => setSavedClients(res.data))
                .catch(e => flashPopUp("error", e.data.response.msg))
 
-
      }, [])
      useEffect(() => {
-          const selectedClient = savedClients.filter(e => e.name == clientName)
+          const selectedClient = savedClients.filter(e => e.name === clientName)
           if (selectedClient.length > 0) {
                selectedClient.map((e) => {
                     setAddress(e.address)

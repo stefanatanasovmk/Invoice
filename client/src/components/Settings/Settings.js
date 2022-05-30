@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 export default function Settings() {
      const navigate = useNavigate()
      const [isItInfo, setIsItInfo] = useState(true)
-     const { flashPopUp, user, setIsUserDataUpdated } = useContext(Context)
+     const { flashPopUp, user, changeUserData } = useContext(Context)
      const inputsStyle = {
           margin: "5px"
      }
@@ -28,7 +28,7 @@ export default function Settings() {
                .catch(e => {
                     flashPopUp("error", e.reponse.data.msg)
                })
-          setIsUserDataUpdated()
+          changeUserData()
      }
      const changePassword = (oldPass, newPass) => {
           const data = { oldPass, newPass }

@@ -73,18 +73,31 @@ export default function Home() {
                               <Card className="Cards" cardFor={"Наплатено"} number={totalPayed} />
                               <Card className="Cards" cardFor={"Профит"} number={totalWithoutVAT} />
                          </div>
-                         <div className="InvoicesTable">
-                              <InvoicesTableHeader />
 
+                         <div className="InvoicesTable">
+                              <div className="DesktopHeader">
+                                   <InvoicesTableHeader />
+                              </div>
+
+                              {invoices.map(e =>
+
+                                   <>
+                                        <div className="HeaderAndTableRowsForSmallScreen">
+                                             <div className="SmallScreenHeader">
+                                                  <InvoicesTableHeader />
+                                             </div>
+                                             < InvoicesTableRow id={e._id} key={e._id}
+                                                  client={e.clientInfo && e.clientInfo.name}
+                                                  paymentDate={dateFns.format(Date.parse(e.invoiceInfo.paymentDate), "keyboardDate")}
+                                                  priceWithoutVAT={e.total.totalWithoutVAT}
+                                                  VAT={e.total.totalVAT} total={e.total.total} payed={e.payed} changePaymentStatus={changePaymentStatus} deleteInvoice={deleteInvoice} />
+                                        </div>
+                                   </>
+
+                              )}
                          </div>
-                         {invoices.map(e =>
-                              < InvoicesTableRow id={e._id} key={e._id}
-                                   client={e.clientInfo && e.clientInfo.name}
-                                   paymentDate={dateFns.format(Date.parse(e.invoiceInfo.paymentDate), "keyboardDate")}
-                                   priceWithoutVAT={e.total.totalWithoutVAT}
-                                   VAT={e.total.totalVAT} total={e.total.total} payed={e.payed} changePaymentStatus={changePaymentStatus} deleteInvoice={deleteInvoice} />)
-                         }
                     </React.Fragment>
+
                     :
                     <Loader />
                }

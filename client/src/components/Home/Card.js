@@ -4,14 +4,13 @@ export default function Card({ cardFor, number }) {
           <div className="Card">
                <span
                     style={{
-                         fontSize: "1em",
+                         // fontSize: "1em",
                          textAlign: "center"
                     }}>{cardFor}</span>
                <span
-                    st
-                    yle={{
+                    style={{
                          paddingTop: "15px",
-                         fontSize: "1.5em"
+                         // fontSize: "1em"
                     }}>{number}</span>
           </div>
      )
