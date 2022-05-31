@@ -1,4 +1,4 @@
-## Faktura app - invoice.mk
+## Faktura app - www.invoice.mk
 Invoice app build in React &amp; Express
 
 If you want to clone & start this app on your local machine you need Node.js v16 & MongoDB running
