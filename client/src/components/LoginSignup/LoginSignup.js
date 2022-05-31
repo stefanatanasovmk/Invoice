@@ -22,8 +22,8 @@ export default function LoginSignup({ flash }) {
      const [submited, setSubmited] = useToggle(false)
 
      const sendCodeForChangePassword = () => {
-
-          axios.post("/api/changepassword", { email: email })
+          const fixedEmail = email.trim().toLowerCase()
+          axios.post("/api/changepassword", { email: fixedEmail })
                .then(res => flashPopUp("success", res.data.msg))
                .catch(e => flashPopUp("success", e.response.data.msg))
           setSubmited()
@@ -32,7 +32,8 @@ export default function LoginSignup({ flash }) {
      //Change password
      const [code, setCode] = useInputControl("")
      const changePassword = () => {
-          const data = { password1: password1, password2: password2, email: email, code: code }
+          const fixedEmail = email.trim().toLowerCase()
+          const data = { password1: password1, password2: password2, email: fixedEmail, code: code }
           axios.post(`/api/changepassword/${code}`, data)
                .then(res => flashPopUp("success", res.data.msg))
                .catch(e => flashPopUp("error", e.response.data.msg))
@@ -42,7 +43,8 @@ export default function LoginSignup({ flash }) {
      //Registration
 
      const register = () => {
-          const data = { password1, password2, email }
+          const fixedEmail = email.trim().toLowerCase()
+          const data = { password1, password2, email: fixedEmail }
           if (isEmail(email)) {
                axios.post("/api/signup", data)
                     .then((res) => {
@@ -63,7 +65,8 @@ export default function LoginSignup({ flash }) {
 
      //Login
      const login = () => {
-          const data = { username: email, password: password1 }
+          const fixedEmail = email.trim().toLowerCase()
+          const data = { username: fixedEmail, password: password1 }
           axios.post("/api/login", data)
                .then((res) => {
                     flashPopUp("success", res.data.msg)

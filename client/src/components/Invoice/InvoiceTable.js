@@ -5,7 +5,7 @@ import "../../style/InvoiceTable.css"
 import Footer from "./Footer";
 import { v4 as uuidv4 } from 'uuid';
 
-export default function InvoiceTable({ getAllTotals, products }) {
+export default function InvoiceTable({ getAllTotals, products, setRowsStatus }) {
      const [allTotal, setAllTotal] = useState(0)
      const [allTotalVAT, setAllTotalVAT] = useState(0)
      const [allTotalWithoutVAT, setAllTotalWithoutVAT] = useState(0)
@@ -19,14 +19,20 @@ export default function InvoiceTable({ getAllTotals, products }) {
           setAllTotalVAT((prev) => prev - totalVAT)
           setAllTotalWithoutVAT((prev) => prev - totalWithoutVAT)
      }
+     const oneRow = () => {
+          setRows([<Row plusTotal={plusTotal} minusTotal={minusTotal} rowRemove={rowRemove} id={uuidv4()} key={uuidv4()} rowNum={1} />])
+     }
      const rowRemove = (id) => {
           setRows(rows => [...rows.filter(e => e.props.id !== id)])
      }
      const resetRows = () => {
-          setRows([])
-          addRow()
+          setAllTotal(0)
+          setAllTotalVAT(0)
+          setAllTotalWithoutVAT(0)
+          setRowsStatus([])
+          oneRow()
      }
-     const [rows, setRows] = useState([<Row plusTotal={plusTotal} minusTotal={minusTotal} rowRemove={rowRemove} id={uuidv4()} key={uuidv4()} rowNum={1} />])
+     const [rows, setRows] = useState([])
 
      const addRow = () => {
           setRows(rows => [...rows, <Row plusTotal={plusTotal} minusTotal={minusTotal} rowRemove={rowRemove} id={uuidv4()} key={uuidv4()} rowNum={rows.length + 1} />])
@@ -34,7 +40,6 @@ export default function InvoiceTable({ getAllTotals, products }) {
 
      useEffect(() => {
           if (products.length > 0) {
-
                setRows(products.map((e, inx) =>
                     <Row plusTotal={plusTotal}
                          minusTotal={minusTotal}
@@ -49,6 +54,9 @@ export default function InvoiceTable({ getAllTotals, products }) {
                          dbQuantity={e.quantity}
                          dbIsEditing={false}
                     />))
+          } else {
+               // setRows([<Row plusTotal={plusTotal} minusTotal={minusTotal} rowRemove={rowRemove} id={uuidv4()} key={uuidv4()} rowNum={1} />])
+               oneRow()
           }
      }, [products])
      useEffect(() => {

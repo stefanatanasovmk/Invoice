@@ -12,6 +12,7 @@ import areRowsCalculated from "../../functions/areRowsCalculated";
 import PrintIcon from '@mui/icons-material/Print';
 import useToggle from "../../hooks/useToggle";
 import Loader from "../../Loader";
+import { is } from "date-fns/locale";
 export default function Invoice() {
      const { flashPopUp, user } = useContext(Context)
      const [isLoading, setIsLoading] = useToggle(true)
@@ -64,8 +65,6 @@ export default function Invoice() {
           const { _id } = fetchedInvoiceData
           const data = { allRowsData, allTotals, _id, clientAndInvoiceData }
           const isFinnished = areRowsCalculated(rowsStatus)
-          console.log(isFinnished)
-
           if (isFinnished) {
                axios.post("/api/saveeditedinvoice", data).then(res => flashPopUp("success", res.data.msg))
                     .catch(e => flashPopUp("error", e.response.data.msg))
@@ -75,6 +74,7 @@ export default function Invoice() {
      }
      const getSavedInvoice = async () => {
           if (id) {
+               setRowsStatus([])
                axios.get(`/api/getinvoice/${id}`)
                     .then((res) => {
                          setFetchedProductsData(res.data.products)
@@ -99,7 +99,12 @@ export default function Invoice() {
           logo: user.logo.path
      }
      const handlePrint = () => {
-          window.print()
+          const isFinnished = areRowsCalculated(rowsStatus)
+          if (isFinnished) {
+               window.print()
+          } else {
+               flashPopUp("warning", "Ве молиме потврдете ги сите артикли во фактурата, или додајте артикл")
+          }
      }
      return (
           <div className="Invoice">
@@ -116,6 +121,7 @@ export default function Invoice() {
                               <InvoiceTable
                                    products={fetchedProductsData}
                                    getAllTotals={getAllTotals}
+                                   setRowsStatus={setRowsStatus}
                               />
                          </Context.Provider>
                          {id ?
