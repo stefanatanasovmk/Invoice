@@ -10,12 +10,10 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom"
 import areRowsCalculated from "../../functions/areRowsCalculated";
 import PrintIcon from '@mui/icons-material/Print';
-import useToggle from "../../hooks/useToggle";
 import Loader from "../../Loader";
-import { is } from "date-fns/locale";
 export default function Invoice() {
      const { flashPopUp, user } = useContext(Context)
-     const [isLoading, setIsLoading] = useToggle(true)
+     const [isLoading, setIsLoading] = useState(true)
      let navigate = useNavigate()
      const { id } = useParams()
      const [fetchedProductsData, setFetchedProductsData] = useState([])
@@ -72,28 +70,47 @@ export default function Invoice() {
                flashPopUp("warning", "Ве молиме потврдете ги сите артикли во фактурата, или додајте артикл")
           }
      }
-     const getSavedInvoice = async () => {
-          if (id) {
-               setRowsStatus([])
-               axios.get(`/api/getinvoice/${id}`)
-                    .then((res) => {
-                         setFetchedProductsData(res.data.products)
-                         setFetchedInvoiceData(res.data)
-                         setRowsStatus([])
-                         setIsLoading()
-                    })
-                    .catch((e) => {
-                         flashPopUp("error", e.response.data.msg)
-                         setIsLoading()
-                    })
-          } else {
-               setIsLoading()
-          }
-     }
+     // const getSavedInvoice = async () => {
+     //      if (id) {
+     //           setRowsStatus([])
+     //           axios.get(`/api/getinvoice/${id}`)
+     //                .then((res) => {
+     //                     setFetchedProductsData(res.data.products)
+     //                     setFetchedInvoiceData(res.data)
+     //                     setRowsStatus([])
+     //                     setIsLoading()
+     //                })
+     //                .catch((e) => {
+     //                     flashPopUp("error", e.response.data.msg)
+     //                     setIsLoading()
+     //                })
+     //      } else {
+     //           setIsLoading()
+     //      }
+     // }
 
      useEffect(() => {
+          const getSavedInvoice = async () => {
+               if (id) {
+                    setRowsStatus([])
+                    axios.get(`/api/getinvoice/${id}`)
+                         .then((res) => {
+                              setFetchedProductsData(res.data.products)
+                              setFetchedInvoiceData(res.data)
+                              setRowsStatus([])
+                              setIsLoading(false)
+                         })
+                         .catch((e) => {
+                              flashPopUp("error", e.response.data.msg)
+                              setIsLoading(false)
+                         })
+               } else {
+                    setIsLoading(false)
+               }
+
+          }
           getSavedInvoice()
-     }, [])
+     }, [id, flashPopUp])
      const companyInfo = {
           name: user.companyName, address: user.address, telephone: user.tel, mail: user.username, bankAcc: user.bankAccount, tax: user.taxNumber,
           logo: user.logo.path

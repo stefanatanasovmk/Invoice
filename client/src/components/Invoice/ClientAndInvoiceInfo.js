@@ -66,8 +66,7 @@ export default function ClientAndInvoiceInfo({ getClientAndInvoiceData, flashPop
           <div className="ClientAndInvoiceInfo">
                <div className="ClientInfo">
                     <Autocomplete
-                         onChange={(e, val) => setClientName
-                              (val)}
+                         onChange={(e, val) => setClientName(val)}
                          value={clientName}
                          freeSolo
                          id="free-solo-2-demo"

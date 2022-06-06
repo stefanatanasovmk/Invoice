@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import useInputControl from "../../hooks/useInputControl";
 import "../../style/CompanyInfo.css"
 export default function CompanyInfo({ companyInfo }) {

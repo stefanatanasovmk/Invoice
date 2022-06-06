@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import LoginSignup from "./components/LoginSignup/LoginSignup";
 import NavBar from "./components/NavBar";
 import Context from "./context/Context";
@@ -18,12 +18,12 @@ function App() {
   //Flash state 
   const [flashIsOnTypeMsg, setFlash] = useState({ isOn: false, type: "", msg: "" })
   //Flash global function is used in Context in every component and it's displayed in NavBar & LoginSignup components
-  const flashPopUp = (type, msg) => {
+  const flashPopUp = useCallback((type, msg) => {
     setFlash({ isOn: true, type: type, msg: msg })
     setTimeout(() => {
       setFlash({ isOn: false, type: "", msg: "" })
     }, 5000)
-  }
+  }, [])
   //User state & control
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [user, setUser] = useState({})

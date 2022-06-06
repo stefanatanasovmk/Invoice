@@ -1,3 +1,4 @@
+import React from "react";
 import { Alert } from "@mui/material";
 export default function Flash({ type, msg }) {
      return (
