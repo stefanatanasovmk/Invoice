@@ -15,6 +15,6 @@ In client directory run:
 
 # npm start
 
-If you want to build the frontend in client directory run:
+If you want to build the frontend in main directory run:
 
 # ./deploy.sh
