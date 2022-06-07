@@ -11,7 +11,7 @@ const MongoStore = require("connect-mongo")
 
 
 // app.use(cors())
-app.use(express.static("build"))
+app.use(express.static(path.josin(__dirname, "/client/build")))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
