@@ -6,12 +6,13 @@ const passport = require("passport")
 const User = require("./models/User")
 const LocalStrategy = require("passport-local")
 const MongoStore = require("connect-mongo")
+const path = require("path")
 
 // const cors = require("cors")
 
 
 // app.use(cors())
-app.use(express.static(path.josin(__dirname, "/client/build")))
+app.use(express.static(path.join(__dirname, "/client/build")))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
