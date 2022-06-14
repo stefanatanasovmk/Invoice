@@ -36,11 +36,9 @@ export default function ClientAndInvoiceInfo({ getClientAndInvoiceData, flashPop
      useEffect(() => {
           const selectedClient = savedClients.filter(e => e.name === clientName)
           if (selectedClient.length > 0) {
-               selectedClient.map((e) => {
-                    setAddress(e.address)
-                    setTel(e.tel)
-                    setEmail(e.email)
-               })
+               setAddress(selectedClient[0].address)
+               setTel(selectedClient[0].tel)
+               setEmail(selectedClient[0].email)
           }
      }, [clientName])
 
