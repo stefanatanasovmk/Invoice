@@ -81,18 +81,19 @@ export default function Home() {
 
                               {invoices.map(e =>
 
-                                   <>
-                                        <div className="HeaderAndTableRowsForSmallScreen">
-                                             <div className="SmallScreenHeader">
-                                                  <InvoicesTableHeader />
-                                             </div>
-                                             < InvoicesTableRow id={e._id} key={e._id}
-                                                  client={e.clientInfo && e.clientInfo.name}
-                                                  paymentDate={dateFns.format(Date.parse(e.invoiceInfo.paymentDate), "keyboardDate")}
-                                                  priceWithoutVAT={e.total.totalWithoutVAT}
-                                                  VAT={e.total.totalVAT} total={e.total.total} payed={e.payed} changePaymentStatus={changePaymentStatus} deleteInvoice={deleteInvoice} />
+
+                                   <div className="HeaderAndTableRowsForSmallScreen" key={e._id}>
+                                        <div className="SmallScreenHeader">
+                                             <InvoicesTableHeader />
                                         </div>
-                                   </>
+                                        <InvoicesTableRow
+                                             id={e._id}
+                                             client={e.clientInfo && e.clientInfo.name}
+                                             paymentDate={dateFns.format(Date.parse(e.invoiceInfo.paymentDate), "keyboardDate")}
+                                             priceWithoutVAT={e.total.totalWithoutVAT}
+                                             VAT={e.total.totalVAT} total={e.total.total} payed={e.payed} changePaymentStatus={changePaymentStatus} deleteInvoice={deleteInvoice} />
+                                   </div>
+
 
                               )}
                          </div>
