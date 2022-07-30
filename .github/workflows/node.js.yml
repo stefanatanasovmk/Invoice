@@ -5,7 +5,7 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
@@ -17,14 +17,18 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm i
-    - run: bash ./deploy.sh
-          
-         
-          
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+      - run: npm i
+      - run: |
+          touch .env
+          echo SENDGRID_API_KEY="${{ secrets.SENDGRID_API_KEY }}" >> .env 
+          echo CLOUDINARY_CLOUD_NAME="${{ secrets.CLOUDINARY_CLOUD_NAME }}" >> .env 
+          echo CLOUDINARY_CLOUD_KEY="${{ secrets.CLOUDINARY_CLOUD_KEY }}" >> .env 
+          echo CLOUDINARY_SECRET="${{ secrets.CLOUDINARY_SECRET }}" >> .env 
+          cat .env
+      - run: bash ./deploy.sh
